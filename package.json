@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "@adonisjs/ace": "^5.0.4",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2"
+  },
+  "devDependencies": {
+    "standard": "*"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "standard": "standard --fix *.js src/*.js commands/*.js"
+  }
+}
