@@ -31,6 +31,17 @@ class CashTree extends EventEmitter {
   }
 
   /**
+  * Get user info
+  *
+  * @return {Object} all data of user
+  */
+  userInfo () {
+    const reqOpt = JSON.parse(JSON.stringify(this._reqOpt))
+    reqOpt.uri = 'https://api.ctree.id/api2/user/info'
+    return request(reqOpt)
+  }
+
+  /**
   * Get all ads campaign list
   *
   * @return {Object} response when get all ads list
