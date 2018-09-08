@@ -11,7 +11,8 @@ const EventEmitter = require('events')
 
 class CashTree extends EventEmitter {
   /**
-  * SetUp CashTree data
+  * Set up CashTree account data
+  *
   * @param {Object} data
   * @param {string} data.mmses
   * @param {string} data.av
@@ -30,8 +31,9 @@ class CashTree extends EventEmitter {
   }
 
   /**
-  * Get all ads data
-  * @return {Object} get all ads object
+  * Get all ads campaign list
+  *
+  * @return {Object} response when get all ads list
   */
   adList () {
     const reqOpt = JSON.parse(JSON.stringify(this._reqOpt))
@@ -41,8 +43,9 @@ class CashTree extends EventEmitter {
 
   /**
   * Start the ads
+  *
   * @param  {number}  adid
-  * @return {Promise}
+  * @return {Promise} response when start ads campaign
   */
   adStart (adid) {
     const reqOpt = JSON.parse(JSON.stringify(this._reqOpt))
@@ -54,8 +57,9 @@ class CashTree extends EventEmitter {
 
   /**
   * Follow redirect uri
+  *
   * @param {String} redirect
-  * @return {Promise}
+  * @return {Promise} response when follow redirect uri of ads
   */
   adR (redirect) {
     return request({
@@ -67,9 +71,10 @@ class CashTree extends EventEmitter {
 
   /**
   * Add apps to user (install app)
+  *
   * @param {number} size
   * @param {string} app
-  * @return {Promise}
+  * @return {Promise} response when add app to installed list
   */
   usersAppsAdd (size, app) {
     const reqOpt = JSON.parse(JSON.stringify(this._reqOpt))
@@ -81,8 +86,9 @@ class CashTree extends EventEmitter {
 
   /**
   * Claim reward
+  *
   * @param {number} adid
-  * @return {Promise}
+  * @return {Promise} response when claim reward of ads campaign
   */
   adCompleteReward (adid) {
     const reqOpt = JSON.parse(JSON.stringify(this._reqOpt))
@@ -95,11 +101,6 @@ class CashTree extends EventEmitter {
     let adList = await this.adList()
     adList = adList.result.al
     for (const ad of adList) {
-      /*
-      * data ads event
-      * @event CashTree#data
-      * @type {object}
-      */
       this.emit('data', ad)
     }
   }
