@@ -19,20 +19,10 @@ class Start extends Command {
   }
 
   async handle (args, flags) {
-    if (!flags.mmses) {
-      flags.mmses = await this.ask('Enter mmses')
-    }
-
-    if (!flags.av) {
-      flags.av = await this.ask('Enter av')
-    }
-
-    if (!flags.gaid) {
-      flags.gaid = await this.ask('Enter gaid')
-    }
-
-    if (!flags.imei) {
-      flags.imei = await this.ask('Enter imei')
+    for (const key in flags) {
+      if (!flags[key]) {
+        flags[key] = await this.ask('Enter ' + key)
+      }
     }
 
     const newCash = new CashTree(flags)
