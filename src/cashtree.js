@@ -3,7 +3,7 @@
 /**
 * @author Ccocot <ccocot@bc0de.net>
 * @file for create request to cashtree host.
-* @version 1.0
+* @version 1.1
 */
 
 const request = require('request-promise')
