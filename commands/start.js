@@ -26,6 +26,10 @@ class Start extends Command {
     }
 
     const newCash = new CashTree(flags)
+    let userInfo = await newCash.userInfo()
+
+    if (userInfo.code) throw new Error('Login failed')
+
     newCash.on('data', async (data) => {
       const header = `[${data.a}] ${data.tt} (${data.tp} - Reward: ${data.lr})`
       try {
@@ -39,6 +43,7 @@ class Start extends Command {
         console.log(`${header} | Error: ${err.message}`)
       }
     })
+    
     newCash.getAds()
   }
 }

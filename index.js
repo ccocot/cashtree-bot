@@ -7,7 +7,11 @@ const ace = require('@adonisjs/ace')
 ace.addCommand(require('./commands/start'))
 
 ace.onError(function (error, commandName) {
-  console.log(`${commandName} reported ${error.message}`)
+
+  if (error.message === 'Login failed') {
+    console.log('\nLogin failed\n')
+  }
+
   process.exit(1)
 })
 
