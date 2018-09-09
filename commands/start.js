@@ -37,7 +37,7 @@ class Start extends Command {
         const start = await newCash.adStart(data.a)
         await newCash.adR(start.result.redirect)
         if (data.tp === 'install') await newCash.usersAppsAdd(data.ut, data.pk)
-        
+
         let reward = await newCash.adCompleteReward(data.a)
         if (reward.code !== 0) throw new Error(reward.msg)
         reward = reward.result.ad_status[0]
@@ -55,7 +55,7 @@ class Start extends Command {
         this.error(log)
       }
     })
-    
+
     newCash.getAds()
   }
 }
