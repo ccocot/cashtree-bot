@@ -31,16 +31,28 @@ class Start extends Command {
     if (userInfo.code) throw new Error('Login failed')
 
     newCash.on('data', async (data) => {
-      const header = `[${data.a}] ${data.tt} (${data.tp} - Reward: ${data.lr})`
+      const logOutputHead = `${data.tt} (${data.tp} - Reward: ${data.lr})\n`
+
       try {
         const start = await newCash.adStart(data.a)
         await newCash.adR(start.result.redirect)
         if (data.tp === 'install') await newCash.usersAppsAdd(data.ut, data.pk)
-        const reward = await newCash.adCompleteReward(data.a)
+        
+        let reward = await newCash.adCompleteReward(data.a)
         if (reward.code !== 0) throw new Error(reward.msg)
-        console.log(`${header} | Total: ${reward.result.cash_status.total} - Earned: ${reward.result.cash_status.earn_today}`)
+        reward = reward.result.ad_status[0]
+
+        let log = `${this.icon('success')} ${logOutputHead}`
+        log += `Status: ${reward.s}\n`
+        log += `Completed time: ${reward.c}\n`
+        log += `Installed time: ${reward.i}\n`
+
+        this.info(log)
       } catch (err) {
-        console.log(`${header} | Error: ${err.message}`)
+        let log = `${this.icon('error')} ${logOutputHead}`
+        log += `Error: ${err.message}\n`
+
+        this.error(log)
       }
     })
     
